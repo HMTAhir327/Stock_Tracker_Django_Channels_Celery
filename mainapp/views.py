@@ -52,4 +52,4 @@ def stockTracker(request):
     #thread part finish here and time counted for better performance
 
     print('data:',data)
-    return render(request, 'mainapp/stocktracker.html', {'data': data})
+    return render(request, 'mainapp/stocktracker.html', {'data': data,'room_name': 'track'})
