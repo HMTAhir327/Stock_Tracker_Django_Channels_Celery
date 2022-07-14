@@ -13,11 +13,11 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 #celery beat settings
 #Note: while run celery beat, celery worker will also have to be run on the same machine 
 app.conf.beat_schedule = {
-    'every-10-seconds' : {
-        'task': 'mainapp.tasks.update_stock',
-        'schedule': 10,
-        'args': (['RELIANCE.NS', 'BAJAJFINSV.NS'],)
-    },
+    # 'every-10-seconds' : {
+    #     'task': 'mainapp.tasks.update_stock',
+    #     'schedule': 10,
+    #     'args': (['RELIANCE.NS', 'BAJAJFINSV.NS'],)
+    # },
 }
 #END celery beat settings
 
