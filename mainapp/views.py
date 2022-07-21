@@ -3,6 +3,7 @@ from threading import Thread
 from django.http import HttpResponse
 from django.shortcuts import render
 from yahoo_fin.stock_info import *
+from asgiref.sync import sync_to_async, async_to_sync
 import time
 import queue
 from threading import Thread
@@ -12,7 +13,18 @@ def stockPicker(request):
     stock_picker = tickers_nifty50()
     return render(request, 'mainapp/stockpicker.html', {'stockpicker': stock_picker})
 
-def stockTracker(request):
+@sync_to_async
+def checkAuthenticated(request):
+    if not request.user.is_authenticated:
+        return False
+    else:
+        return True
+
+async def stockTracker(request):
+    is_loginned = await checkAuthenticated(request)
+    if not is_loginned:
+        return HttpResponse("Login First")
+
     stockpicker = request.GET.getlist('stockpicker')
     print('stockpicker:',stockpicker)
     data = {}
